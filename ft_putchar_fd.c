@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idaitihy <idaitihy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/26 11:17:05 by idaitihy          #+#    #+#             */
-/*   Updated: 2026/11/02 13:12:00 by idaitihy         ###   ########.fr       */
+/*   Created: 2026/11/18 12:12:40 by idaitihy          #+#    #+#             */
+/*   Updated: 2026/11/21 10:24:21 by idaitihy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void *))
+int	ft_putchar_fd(char c, int fd)
 {
-	t_list	*current;
-	t_list	*next_node;
-
-	if (!lst || !del)
-		return ;
-	current = *lst;
-	while (current != NULL)
-	{
-		next_node = current->next;
-		del(current->content);
-		free(current);
-		current = next_node;
-	}
-	*lst = NULL;
+	return (write(fd, &c, 1));
 }

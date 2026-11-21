@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_unsi_putnbr_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idaitihy <idaitihy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/13 17:52:35 by idaitihy          #+#    #+#             */
-/*   Updated: 2026/10/16 22:25:06 by idaitihy         ###   ########.fr       */
+/*   Created: 2026/11/20 18:17:35 by idaitihy          #+#    #+#             */
+/*   Updated: 2026/11/21 10:24:31 by idaitihy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include "ft_printf.h"
 
-int	ft_isdigit(int c)
+int	ft_unsi_putnbr_fd(unsigned int n, int fd)
 {
-	if (c >= '0' && c <= '9')
+	char	c;
+	int		ret;
+	int		len;
+
+	len = 0;
+	if (n >= 10)
 	{
-		return (1);
+		ret = ft_unsi_putnbr_fd(n / 10, fd);
+		if (ret == -1)
+			return (-1);
+		len += ret;
 	}
-	return (0);
+	c = (n % 10) + '0';
+	if (write(fd, &c, 1) != 1)
+		return (-1);
+	len++;
+	return (len);
 }

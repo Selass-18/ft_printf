@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_putuhex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idaitihy <idaitihy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/18 14:38:47 by idaitihy          #+#    #+#             */
-/*   Updated: 2026/10/18 15:04:55 by idaitihy         ###   ########.fr       */
+/*   Created: 2026/11/21 13:02:15 by idaitihy          #+#    #+#             */
+/*   Updated: 2026/11/21 13:15:23 by idaitihy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+int	ft_uhex(unsigned int a)
 {
-	size_t	i;
-	size_t	j;
-	char	*arr;
+	char	*str;
+	char	c;
+	int		count;
+	int		len;
 
-	if (!s1 || !s2)
-		return (NULL);
-	arr = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!arr)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
+	len = 0;
+	str = "0123456789ABCDEF";
+	count = 0;
+	if (a >= 16)
 	{
-		arr[i] = s1[i];
-		i++;
+		count = ft_uhex(a / 16);
+		if (count < 0)
+			return (-1);
+		len = len + count;
 	}
-	j = 0;
-	while (s2[j])
-		arr[i++] = s2[j++];
-	arr[i] = '\0';
-	return (arr);
+	c = str[a % 16];
+	if (ft_putchar_fd(c, 1) < 0)
+		return (-1);
+	return (len + 1);
 }

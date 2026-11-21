@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_puthex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idaitihy <idaitihy@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/10/26 11:39:28 by idaitihy          #+#    #+#             */
-/*   Updated: 2026/10/26 11:42:58 by idaitihy         ###   ########.fr       */
+/*   Created: 2026/11/21 13:02:15 by idaitihy          #+#    #+#             */
+/*   Updated: 2026/11/21 13:02:22 by idaitihy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_hex(unsigned int a)
 {
-	t_list	*current;
+	char	*str;
+	char	c;
+	int		count;
+	int		len;
 
-	if (!lst || !f)
-		return ;
-	current = lst;
-	while (current != NULL)
+	len = 0;
+	str = "0123456789abcdef";
+	count = 0;
+	if (a >= 16)
 	{
-		f(current->content);
-		current = current->next;
+		count = ft_hex(a / 16);
+		if (count < 0)
+			return (-1);
+		len = len + count;
 	}
+	c = str[a % 16];
+	if (ft_putchar_fd(c, 1) < 0)
+		return (-1);
+	return (len + 1);
 }
